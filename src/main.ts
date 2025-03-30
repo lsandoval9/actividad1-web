@@ -8,7 +8,15 @@ function createBookCard(book) {
   cardDiv.classList.add('card', 'mb-3');
 
   const cardBody = document.createElement('div');
-  cardBody.classList.add('card-body');
+  cardBody.classList.add('card-body', 'text-center', 'd-flex', 'justify-content-between');
+
+    let firstColumn = document.createElement('div');
+    firstColumn.classList.add('col-6');
+    cardBody.appendChild(firstColumn);
+
+    const secondColumn = document.createElement('div');
+    secondColumn.classList.add('col-6');
+    cardBody.appendChild(secondColumn);
 
   const title = document.createElement('h5');
   title.classList.add('card-title');
@@ -18,11 +26,30 @@ function createBookCard(book) {
   author.classList.add('card-text');
   author.textContent = `Author: ${book.authors[0].name}`;
 
+
+  const imageSrc = book.formats?.['image/jpeg'];
+
+  let image = null;
+
+  if (imageSrc) {
+    image = document.createElement('img');
+    image.classList.add('card-img-top');
+    image.src = imageSrc;
+    image.alt = book.title;
+  }
+  
+    
+
   // Add other book properties as needed (e.g., subjects, formats, etc.)
 
-  cardBody.appendChild(title);
-  cardBody.appendChild(author);
+  secondColumn.appendChild(title);
+  secondColumn.appendChild(author);
   cardDiv.appendChild(cardBody);
+
+  if (image) {
+    firstColumn.appendChild(image);
+  }
+
 
   return cardDiv;
 }
